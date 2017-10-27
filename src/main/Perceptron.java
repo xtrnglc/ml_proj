@@ -15,6 +15,29 @@ public class Perceptron {
 		
 	}
 	
+	public static void runPerceptron(ArrayList<Model> train, ArrayList<Model> test, ArrayList<Model> eval) throws FileNotFoundException, IOException {
+		double[] w = {0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01};
+		double b = 0.001;
+		double learningRate = 0.01;
+		
+		for(Model m : train) {
+			b = simplePerceptronTrain(m, 10, w, b, learningRate);
+		}
+		
+		ArrayList<String> predictions = new ArrayList<String>();
+		
+		for(Model m : eval){
+			int predicted =  perceptronTest(m, w, b);
+			if(predicted > 0) {
+				predictions.add("1");
+			} else {
+				predictions.add("0");
+			}
+		}
+		
+		Driver.print(predictions);
+	}
+	
 	public static double simplePerceptronTrain(Model data, int maxIter, double[] w, double b, double learningRate) {
 		double sum = 0;
 		
