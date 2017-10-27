@@ -16,9 +16,13 @@ public class Driver {
 	static ArrayList<String> evalIds = new ArrayList<String>();
 	static ArrayList<String> trainIds = new ArrayList<String>();
 	static ArrayList<String> testIds = new ArrayList<String>();
+	
 	public static void main(String args[]) throws FileNotFoundException, IOException {
-		
-		
+		parseData();
+		Perceptron.runPerceptron(train, test, eval);
+	}
+	
+	public static void parseData() throws FileNotFoundException, IOException {
 		//Parse data.train
 		try (BufferedReader br = new BufferedReader(new FileReader("DatasetRetry/data-splits/data.train"))) {
 		    String line;
@@ -84,8 +88,6 @@ public class Driver {
 		    	evalIds.add(line);
 		    }
 		}
-		
-		Perceptron.runPerceptron(train, test, eval);
 	}
 	
 	public static void print(ArrayList<String> predictions) throws IOException {
